@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>catch button</title>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #ffffff;
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        
+        .disclaimer{
+            display: block;
+            position: fixed;
+            color: black;
+            text-align: center;
+            
+            margin: 0 auto;
+        }
+
+        .disclaimer-container{
+            display: flex;
+            justify-content: center;
+            align-items: top;
+            margin-top: 10%;
+            width: 100%;
+            height: 100vh;
+        }
+
+        .disclaimer span{
+            color: red;
+        }
+
+        .ready{
+            width: clamp(150px, 20vw, 200px);
+            height: 50px;
+            background-color: #2bb700;
+            border: 2px solid #147102c1;
+            color: #ffffff;
+            contain: layout;
+            margin-bottom: 20px;
+            transition: padding .3s ease-out, font-size .3s ease-out, transform .1s ease-out;
+            font-size: auto;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        
+        .disclaimer p{
+            color: black;
+            font-size: medium;
+            font-weight: 500;
+        }
+        
+        .difficulty{
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            gap: 20px;
+        }
+        
+        .mode{
+            border: none;
+            font-weight: 600;
+            font-size: 1.2rem;
+            color: #000;
+            contain: layout;
+            margin-bottom: 20px;
+            transition: padding .3s ease-out, font-size .3s ease-out, transform .1s ease-out;
+            background-color: rgb(221, 221, 221);
+            border: 1px solid #949494c1;
+        }
+        
+        .catch-btn {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            cursor: var(--cursor-pointer);
+            font-size: 21px;
+            padding: 6px 9px;
+            touch-action: manipulation;
+            --cursor: pointer;
+            border: 2px solid #949494c1;
+            color: #000;
+            contain: layout;
+            margin-bottom: 20px;
+            transition: padding .3s ease-out, font-size .3s ease-out, transform .1s ease-out;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            user-select: none;
+            --cursor-default: auto;
+            --cursor-pointer: pointer;
+            background-color: #F0F0F0;
+            width: 75px;
+            position: absolute;
+            top: 40%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        
+        .game{
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -100;
+        }
+
+        .stats{
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: top;
+            gap: 10px;
+            color: black;
+            font-weight: 600;
+            font-size: 1.2rem;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="disclaimer-container">>
+        <div class="disclaimer" id="disclaimer">
+            <h1>Get ready!</h1>
+            <h3>You will have to catch the button in <span>short amount of time</span> and see how fast can you do it (or fail it)</h3>
+
+            <p>Choose time:</p>
+            <div class="difficulty">
+                <button class="mode mode-1">30s</button>
+                <button class="mode mode-2">20s</button>
+                <button class="mode mode-3">10s</button>
+            </div>
+        </br>
+            <button class="ready" id="start-btn">I'm ready</button>
+        </div>
+    </div>
+
+    <div class="main-container">
+        <div class="game" id="game">
+            <div class="stats">
+                <div class="time-left" id="time-left">30 seconds left /</div>
+                <div id="counterDisplay" class="counter">0 clicks</div>
+            </div>
+
+            <div class="button-container">
+                <button class="catch-btn" id="main-btn">Click</button>
+            </div>    
+        </div>
+    </div>
+
+    <script>
+        let counter = 0;
+        let time = 30;
+        let timer = null;
+
+        let ready_btn = document.getElementById('start-btn');
+        let catched = document.getElementById('main-btn');
+        let disclaimer = document.getElementById('disclaimer');
+        let game = document.getElementById('game');
+        let counterDisplay = document.getElementById('counterDisplay');
+        let timeLeft = document.getElementById('time-left');
+        let mode_1 = document.querySelector('.mode-1');
+        let mode_2 = document.querySelector('.mode-2');
+        let mode_3 = document.querySelector('.mode-3');
+
+        mode_1.addEventListener('click', () => timeLeft = 30);
+        mode_2.addEventListener('click', () => timeLeft = 20);
+        mode_3.addEventListener('click', () => timeLeft = 10);
+
+        ready_btn.addEventListener('click', () => {
+            game.style.display = 'block';
+            disclaimer.style.display = 'none';
+        })
+
+
+        // РАНДОМАЙЗЕР ПОЛОЖЕНИЯ + РАБОТА ТАЙМЕРА
+
+
+    </script>
+</body>
+</html>

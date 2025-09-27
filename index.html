@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cat clicker</title>
+
+    <style>
+        :root {
+            --index: calc(1vw + 1vh);
+        }
+        body{
+            background-image: url('https://i.pinimg.com/736x/88/e6/e1/88e6e154eebb44d657f6fba4f0520352.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            overflow: hidden;
+            touch-action: none;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            min-height: 100vh; /* минимальная высота — вся видимая область */
+            max-height: 100vh; /* максимальная высота — вся видимая область */
+            overflow: hidden;  /* скрываем прокрутку, если что-то вылезает */
+            height: 100vh;    /* ограничивает высоту окном браузера */
+            margin: 0;        /* убираем стандартные отступы */
+            padding: 0;
+            position: relative;
+        }
+        
+        body::before{
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.3); /* затемнение 40% */
+            z-index: -1000000000;
+        }
+
+        .main {
+            width: 100vw;
+            height: 99vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            padding-top: 10vh;
+            box-sizing: border-box;
+            overflow: hidden;
+        }
+
+        .label1 {
+            font-size: clamp(2rem, 5vw, 4rem);
+            -webkit-text-stroke: 1px rgba(73, 73, 73, 0.553);
+            font-weight: 900;
+            text-align: center;
+            background: linear-gradient(
+                to right,
+                #ff0000 0%,
+                #ff8000 16.66%,
+                #ffff00 33.33%,
+                #00ff00 50%,
+                #0080ff 66.66%,
+                #8000ff 83.33%,
+                #ff0000 100%
+            );
+            background-size: 600% 100%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: rainbowAnimation 5s linear infinite;
+            margin: 0 auto;
+            padding: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.3);
+        }
+
+        h3 {
+            font-size: clamp(1rem, 3vw, 1.8rem);
+            -webkit-text-stroke: 0.5px rgba(73, 73, 73, 0.553);
+            font-weight: 900;
+            text-align: center;
+            background: linear-gradient(
+                to right,
+                #ff0000 0%,
+                #ff8000 16.66%,
+                #ffff00 33.33%,
+                #00ff00 50%,
+                #0080ff 66.66%,
+                #8000ff 83.33%,
+                #ff0000 100%
+            );
+            background-size: 600% 100%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: rainbowAnimation 5s linear infinite;
+            margin: 0;
+            padding: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.3);
+        }
+        
+        .buttons-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-bottom: 20px;
+            margin-top: 10%;
+        }
+        
+        .mode1, .mode2 {
+            padding: 15px 25px;
+            font-size: clamp(1rem, 3vw, 1.5rem);
+            border-radius: 10px;
+            color: white;
+            cursor: pointer;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            width: calc(var(--index) * 13);
+            font-weight: 700;
+        }
+
+        .mode1 {
+            background: rgb(104, 160, 0);
+            border: 2px solid rgb(16, 137, 0);
+        }
+
+        .mode2 {
+            background: rgba(255, 0, 0, 0.767);
+            border: 2px solid rgb(237, 0, 0);
+        }
+        
+        .mode1:hover{
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .mode2:hover{
+            background: rgba(255, 0, 0, 0.9);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .achievments {
+            padding: 15px 40px;
+            background: rgb(255, 217, 0);
+            border: 2px solid rgba(255, 215, 0, 0.5);
+            border-radius: 10px;
+            color: rgb(121, 103, 0);
+            cursor: pointer;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            font-weight: bold;
+            font-size: clamp(1rem, 3vw, 1.5rem);
+        }
+        
+        .achievments:hover {
+            background: rgb(255, 217, 0);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        @keyframes rainbowAnimation {
+            0% {
+                background-position: 0% 50%;
+            }
+            100% {
+                background-position: 100% 50%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .label1 {
+                font-size: 3rem;
+            }
+            
+            h3 {
+                font-size: 1.1rem;
+            }
+            
+            .buttons-container {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .label1 {
+                font-size: 2rem;
+            }
+            
+            h3 {
+                font-size: 1rem;
+            }
+            
+            .mode1, .mode2, .achievments {
+                padding: 12px 20px;
+                font-size: 1rem;
+            }
+        }
+
+        .gif1{
+            width: clamp(2rem, 5vw, 4rem);
+            height: calc(var(--index) * 5);
+            position: absolute;
+            bottom: 10%;
+            left: 20%;
+            z-index: -100;
+        }
+
+        .gif2{
+            width: calc(var(--index) * 15);
+            height: calc(var(--index) * 15);
+            position: absolute;
+            bottom: 25%;
+            right: 0%;
+            z-index: -100;
+            rotate: -30deg;
+            scale: 1.6;
+        }
+
+        .gif3{
+            width: calc(var(--index) * 10);
+            height: calc(var(--index) * 5);
+            position: absolute;
+            bottom: 60%;
+            right: 30%;
+            z-index: -100;
+        }
+
+        .gif4 {
+            width: calc(var(--index) * 10);
+            height: calc(var(--index) * 10);
+            position: absolute;
+            top: 10%;
+            left: 10%;
+            z-index: -100;
+        }
+
+        .gif5 {
+            position: absolute;
+            top: 0%;
+            left: 40%;
+            scale: 0.6;
+            transform: rotate(190deg);
+        }
+
+        .gif-container{
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none; /* чтобы ГИФы не мешали кликать */
+            z-index: -100;
+        }
+
+
+        .gif{
+            position: absolute;
+            max-width: 15vw; /* относительно ширины экрана */
+            max-height: 15vh; /* относительно высоты экрана */
+            object-fit: contain; /* сохраняет пропорции */
+            width: clamp(25vw, 5vw, 4rem);
+            height: auto;
+        }
+
+        @media (min-width: 768px) {
+            .gif {
+                width: clamp(70px, 10vw, 200px); /* больше на планшетах */
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .gif {
+                width: clamp(100px, 8vw, 250px); /* больше на десктопах */
+            }
+        }
+
+
+        @media (max-width: 768px) {
+            .gif {
+                max-width: 20vw;
+                max-height: 20vh;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .gif {
+                max-width: 25vw;
+                max-height: 25vh;
+            }
+        }
+
+
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6); /* затемнение */
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: rgba(255, 217, 0, 0.868);
+            backdrop-filter: blur(5px);
+            padding: 30px;
+            border-radius: 15px; /* скруглённые углы */
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            text-align: left;
+            max-width: 500px;
+            max-height: 80vh;
+            width: 90%;
+            padding: 50px;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0;
+        }
+
+        .modal-header h1{
+            font-size: calc(var(--index)*2.5);
+        }
+
+        .back{
+            border: 3px solid black;
+            background-color: transparent;
+            color: rgb(0, 0, 0);
+            padding: 5px 10px;
+            border-radius: 50%;
+            cursor: pointer;
+            width: 60px;
+            height: 60px;
+            min-width: 60px;
+            font-size:large;
+            font-weight: 600;
+        }
+
+        .card{
+            display: flex;
+            flex-direction: row;
+            align-items: center; /* выравнивание по вертикали */
+            width: 100% - 10px; /* ширина — вся доступная */
+            padding-right: 15px;
+            border-radius: 10px;
+            background-color: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 10px;
+            gap: 15px; /* отступ между картинкой и текстом */
+        }
+
+
+        .ach-img{
+            width: 100px; /* можно изменить по желанию */
+            height: 100px;
+            border-radius: 10px; /* скругление картинки */
+            object-fit: cover;
+        }
+
+        .badges {
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+            overflow-y: auto; /* Прокрутка, если карточек много */
+            max-height: 50vh; /* Ограничение высоты */
+            padding-right: 5px; /* Чтобы скролл не прилипал к краю */
+            text-align: left; /* Выравнивание текста по левому краю */
+            gap: 10px; /* Отступы между карточками */
+        }
+</style>
+</head>
+<body>
+    <div class="main">
+        <h1 class="label1">CAT CLICKER!</h1>
+        <h3>Click on the cat and become clickionire!</h3>
+        
+        <div class="buttons-container">
+            <a href="classic.html">
+                <button class="mode1">Classic</button>
+            </a>
+            <a href="catch.html">
+                <button class="mode2">Catch mode</button>
+            </a>
+        </div>
+        
+        
+        <button class="achievments" onclick="openModal()">🏆Badges🏆</button>
+
+        <div class="modal-overlay" id="modal" style="display: none;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1>Badges</h1>
+                    <button class="back" id="back" onclick="closeModal()">X</button>
+                </div>
+
+                <div class="badges">
+                    <div class="card achievment1">
+                        <img src="img/министр кошачьих дел.jpeg" alt="achievment1" class="ach-img achievment1">
+                        <div class="card-content">
+                            <h2>Welcome!</h2>
+                            <p>Start wasting your time and ruining your life!</p>
+                        </div>
+                    </div>
+
+                    <div class="card achievment1">
+                        <img src="img/министр кошачьих дел.jpeg" alt="achievment1" class="ach-img achievment1">
+                        <div class="card-content">
+                            <h2>Welcome!</h2>
+                            <p>Start wasting your time and ruining your life!</p>
+                        </div>
+                    </div>
+
+                    <div class="card achievment1">
+                        <img src="img/министр кошачьих дел.jpeg" alt="achievment1" class="ach-img achievment1">
+                        <div class="card-content">
+                            <h2>Welcome!</h2>
+                            <p>Start wasting your time and ruining your life!</p>
+                        </div>
+                    </div>
+                    
+                    <div class="card achievment1">
+                        <img src="img/министр кошачьих дел.jpeg" alt="achievment1" class="ach-img achievment1">
+                        <div class="card-content">
+                            <h2>Welcome!</h2>
+                            <p>Start wasting your time and ruining your life!</p>
+                        </div>
+                    </div>
+                    
+                    <div class="card achievment1">
+                        <img src="img/министр кошачьих дел.jpeg" alt="achievment1" class="ach-img achievment1">
+                        <div class="card-content">
+                            <h2>Welcome!</h2>
+                            <p>Start wasting your time and ruining your life!</p>
+                        </div>
+                    </div>
+                    
+                    <div class="card achievment1">
+                        <img src="img/министр кошачьих дел.jpeg" alt="achievment1" class="ach-img achievment1">
+                        <div class="card-content">
+                            <h2>Welcome!</h2>
+                            <p>Start wasting your time and ruining your life!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="gif-container">
+            <img src="img/aaaah-cat.gif" alt="" class="gif gif1">
+            <img src="img/funny-cat-meme.gif" alt="" class="gif gif2">
+            <img src="img/explosion-cats.gif" alt="" class="gif gif3">
+            <img src="/img/cat-cat-meme.gif" alt="" class="gif gif4">
+            <img src="/img/backo.jpeg" alt="" class="gif gif5">
+        </div>
+    </div>
+
+
+    <script>
+        function openModal() {
+            const modal = document.getElementById('modal');
+            modal.style.display = 'flex';
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('modal');
+            modal.style.display = 'none';
+        }
+    </script>
+</body>
+</html>
