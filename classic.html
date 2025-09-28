@@ -10,20 +10,18 @@
             padding: 0;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #ffffff;
-            color: white;
+            color: black;
             min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
             overflow: hidden;
         }
 
-        .main-container {
+        .center-container {
             display: flex;
-            justify-content: center;
+            flex-direction: column;
+            justify-content: flex-start;
             align-items: center;
-            width: 100%;
-            height: 100vh;
+            padding-top: 40vh;
+            box-sizing: border-box;
         }
 
         .click-btn {
@@ -31,14 +29,13 @@
             -moz-appearance: none;
             appearance: none;
             cursor: var(--cursor-pointer);
-            font-size: 21px;
+            font-size: clamp(16px, 4vw, 21px); /* Адаптивный размер шрифта */
             padding: 6px 9px;
             touch-action: manipulation;
             --cursor: pointer;
             border: 2px solid #949494c1;
             color: #000;
             contain: layout;
-            margin-bottom: 20px;
             transition: padding .3s ease-out, font-size .3s ease-out, transform .1s ease-out;
             -webkit-user-select: none;
             -moz-user-select: none;
@@ -46,16 +43,16 @@
             --cursor-default: auto;
             --cursor-pointer: pointer;
             background-color: #F0F0F0;
-            margin-bottom: 15%;
-            position: fixed;
+            margin-top: -10vh;
+            outline: none;
         }
         
-        .click-btn:hover{
+        .click-btn:hover {
             background-color: #c5c5c5b7;
         }
 
-        .counter{
-            font-size: 2rem;
+        .counter {
+            font-size: clamp(1rem, 3vw, 1.5rem);
             color: black;
             font-weight: 400;
             text-align: center;
@@ -63,41 +60,39 @@
             opacity: 0;
             -webkit-user-select: none;
             -moz-user-select: none;
-            /* display: none; */
             transition: opacity 0.9s ease;
-            margin-top: -5%;
+            margin-top: 20px;
         }
 
         .counter.show {
             opacity: 1;
         }
+
         
     </style>
 </head>
 <body>
-    <div class="main-container">
+    <div class="center-container">
         <button class="click-btn">Click me</button>
         <div id="counterDisplay" class="counter">0 clicks</div>
     </div>
 
-
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-        let counter = 0;
-        const counterDisplay = document.getElementById('counterDisplay');
-        const clickBtn = document.querySelector('.click-btn');
+            let counter = 0;
+            const counterDisplay = document.getElementById('counterDisplay');
+            const clickBtn = document.querySelector('.click-btn');
 
-        clickBtn.addEventListener('click', () => {
-            console.log('CLick')
-            counter++;
-            counterDisplay.textContent = `${counter} clicks`;
+            clickBtn.addEventListener('click', () => {
+                console.log('Click');
+                counter++;
+                counterDisplay.textContent = `${counter} clicks`;
 
-            // Показываем, если счётчик > 0
-            if (counter > 0) {
-                counterDisplay.classList.add('show');
-            }
+                if (counter > 0) {
+                    counterDisplay.classList.add('show');
+                }
+            });
         });
-        })
     </script>
 </body>
 </html>
