@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>We're actually a copy of EA so you have to click enough for the normal title</title>
+
+    <style>
+        :root {
+            --upgrade-card-size: clamp(50px, 8vw, 70px);
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #ffffff;
+            color: black;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        .center-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .main-widgets {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .click-btn {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            cursor: var(--cursor-pointer);
+            font-size: clamp(16px, 4vw, 21px);
+            padding: 6px 9px;
+            touch-action: manipulation;
+            border: 2px solid #949494c1;
+            color: #000;
+            background-color: #F0F0F0;
+            contain: layout;
+            transition: padding .3s ease-out, font-size .3s ease-out, transform .1s ease-out;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            user-select: none;
+            outline: none;
+            cursor: pointer;
+        }
+
+        .click-btn:hover{
+            background-color: #dcdcdc;
+        }
+
+        .counter {
+            font-size: clamp(1.6rem, 3vw, 2rem);
+            color: black;
+            font-weight: 400;
+            text-align: center;
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            transition: opacity 0.9s ease;
+            margin: 0;
+            opacity: 0;
+        }
+
+        .counter.show {
+            opacity: 1;
+            transition: 0.5s ease;
+        }
+
+        .cps {
+            opacity: 0;
+            font-size: 1em;
+            color: black;
+            font-weight: 500;
+            user-select: none;
+            transition: opacity 0.9s ease;
+            margin: 0;
+        }
+
+        .upgrades {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .upgrade-card {
+            width: var(--upgrade-card-size);
+            height: var(--upgrade-card-size);
+            border: 2px solid #949494c1;
+            border-radius: 15px;
+            background-color: rgb(249, 249, 249);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: small;
+            opacity: 0;
+            transform: scale(0.8);
+            transition: opacity 0.2s ease, transform 0.2s ease;
+            position: relative;
+        }
+
+        .upgrade-card.show {
+            display: flex;
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .description {
+            position: absolute;
+            bottom: -110px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: white;
+            padding: 12px 16px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgb(0, 0, 0);
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.25s ease, transform 0.25s ease;
+            line-height: 1.3em;
+            font-weight: 500;
+        }
+
+        .upgrade-card:hover{
+            transform: translateY(-3px);
+            transition: 0.3s ease;
+        }
+
+        .upgrade-card:hover .description {
+            opacity: 1;
+            transition: 0.3s ease;
+        }
+
+        .upgrade-cards{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            transition: all 0.3s ease;
+            width: 100%;
+            min-height: 90px;
+        }
+
+        .upgrades{
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .upg-img{
+            width: calc(var(--upgrade-card-size) - 10px);
+            height: calc(var(--upgrade-card-size) - 10px);
+            border-radius: 15px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .amount-of-dvd {
+            position: absolute;
+            top: -5px;
+            right: 0;
+            background: rgba(255, 2, 2, 0.975);
+            color: white;
+            font-size: 0.8em;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            pointer-events: none;
+            text-align: center;
+            opacity: 0;
+        }
+
+        .amount-of-dvd.show {
+            opacity: 1;
+            transition: opacity 0.5s ease;
+        }
+    </style>
+</head>
+<body>
+    <div class="center-container">
+        <div class="main-widgets">
+            <button class="click-btn">Click me</button>
+            <div id="counterDisplay" class="counter">0 clicks</div>
+            <div class="cps">n clicks per sec</div>
+        </div>
+        <div class="upgrades">
+            <div class="upgrade-cards">
+                <button class="upgrade-card upgradeDVDCAT">
+                    <img src="https://avatars.mds.yandex.net/i?id=1db5280b511e40acd993d156a610c102e485f31e-5897487-images-thumbs&n=13" alt="dvcat" class="dvcat-logo-upg upg-img">
+                    <span class="amount-of-dvd">0</span>
+                    <div class="description">
+                        <strong> DVD Cat </strong> <br>
+                        +1 click per bounce <br>
+                        <b>Cost: 5 clicks</b>
+                    </div>
+                </button>
+
+                <button class="upgrade-card upgradeTITLE">
+                    <img src="https://avatars.mds.yandex.net/i?id=e182a26699367fcd5bcee348cee397e14d189747-10813564-images-thumbs&n=13" alt="" class="upg-img">
+                    <div class="description">
+                        <strong> Add Page Title </strong> <br>
+                        Get normal title <br>
+                        <b>Cost: 15 clicks</b>
+                    </div>
+                </button>
+
+                <button class="upgrade-card upgradeMORECLICKS1">
+                    <img src="https://avatars.mds.yandex.net/i?id=0bc66ce50060826f76cc0a69a66d613e35aa7fae-5240093-images-thumbs&n=13" alt="" class="upg-img">
+                    <div class="description">
+                        <strong> Amount display </strong> <br>
+                        +1 click per click <br>
+                        <b>Cost: 15 clicks</b>
+                    </div>
+                </button>
+
+                <button class="upgrade-card upgradeCPS">
+                    <img src="https://avatars.mds.yandex.net/i?id=d95cc4a04dc33e575fc852792888e9ad_sr-6307799-images-thumbs&n=13" alt="" class="upg-img">
+                    <div class="description">
+                        <strong> CPS </strong> <br>
+                        See your clicks per second <br>
+                        <b>Cost: 25 clicks</b>
+                    </div>
+                </button>
+
+                <button class="upgrade-card upgradeBUTTON1">
+                    <img src="https://avatars.mds.yandex.net/i?id=e9908fded2ee40485adb812ae66c072a_l-5896834-images-thumbs&n=13" alt="" class="upg-img">
+                    <div class="description">
+                        <strong> Button Upgrade </strong> <br>
+                        +1 click per click <br>
+                        <b>Cost: 40 clicks</b>
+                    </div>
+                </button>
+
+                <button class="upgrade-card upgradeDASH_AGENT">
+                    <img src="https://avatars.mds.yandex.net/i?id=0b778475858a1d3d248c5a300ed97c08a1040506-5101755-images-thumbs&n=13" alt="" class="upg-img">
+                    <div class="description">
+                        <strong> Dash Agent </strong> <br>
+                        +15 clicks per second <br>
+                        <b>Cost: 55 clicks</b>
+                    </div>
+                </button>
+
+                <button class="upgrade-card upgradeNEWS_LINE">
+                    <img src="https://avatars.mds.yandex.net/i?id=4aacabc69c15511751aae37f248b521d045cb188-7547473-images-thumbs&n=13" alt="" class="upg-img">
+                    <div class="description">
+                        <strong> Breaking News </strong> <br>
+                        +15 clicks per second <br>
+                        <b>Cost: 65 clicks</b>
+                    </div>
+                </button>
+
+                <button class="upgrade-card upgradePIANO_CAT">
+                    <img src="https://avatars.mds.yandex.net/i?id=050da0b26ae110587a47999aa2b43198eed48b13-4809920-images-thumbs&n=13" alt="" class="upg-img">
+                    <div class="description">
+                        <strong> Piano Cat</strong> <br>
+                        +20 clicks per second<br>
+                        <b>Cost: 65 clicks</b>
+                    </div>
+                </button>
+
+                <button class="upgrade-card upgradeBIRD_SCREAM">
+                    <img src="https://i.ytimg.com/vi/vWjy5sOE8rw/maxresdefault.jpg" alt="" class="upg-img">
+                    <div class="description">
+                        <strong> Screaming birb </strong> <br>
+                        +25 click per scream <br>
+                        <b>Cost: 85 clicks</b>
+                    </div>
+                </button>
+
+                <button class="upgrade-card upgradePATS_CATS">
+                    <img src="https://avatars.mds.yandex.net/i?id=610efb1fea2c6eb8665eac5bb5105c1562d36a80-5331420-images-thumbs&n=13" alt="" class="upg-img">
+                    <div class="description">
+                        <strong> Relaxing cat </strong> <br>
+                        +35 click per pounce <br>
+                        <b>Cost: 125 clicks</b>
+                    </div>
+                </button>
+
+                <button class="upgrade-card upgradeCAT_MOBILE">
+                    <img src="https://avatars.mds.yandex.net/i?id=5fd1fa69691a30034a64ffef148c357f354fb7e6-8216657-images-thumbs&n=13" alt="" class="upg-img">
+                    <div class="description">
+                        <strong> Cat-mobile </strong> <br>
+                        +100 click per 5 second <br>
+                        <b>Cost: 125 clicks</b>
+                    </div>
+                </button>
+
+                <button class="upgrade-card upgradeCAT_TOY">
+                    <img src="https://avatars.mds.yandex.net/i?id=25ce2323e76ed2d74eae91ba97fdc0d6bb3cb7dd-8567975-images-thumbs&n=13" alt="" class="upg-img">
+                    <div class="description">
+                        <strong> Cat Playing with Toys </strong> <br>
+                        +35 click per second <br>
+                        <b>Cost: 150 clicks</b>
+                    </div>
+                </button>
+
+                <button class="upgrade-card upgradeCAT_PODCAST">
+                    <img src="https://avatars.mds.yandex.net/i?id=f734a5c09e1344587525a49f6016b266877920ab-5252031-images-thumbs&n=13" alt="" class="upg-img">
+                    <div class="description">
+                        <strong> Cat voice podcast </strong> <br>
+                        +50 click per meow <br>
+                        <b>Cost: 300 clicks</b>
+                    </div>
+                </button>
+
+                <button class="upgrade-card upgradeLOOT_BOXES">
+                    <img src="https://avatars.mds.yandex.net/i?id=2ee4040ca58de8e794453fe9110e4a8ba68fd386-5086925-images-thumbs&n=13" alt="" class="upg-img">
+                    <div class="description">
+                        <strong> Loot Boxes </strong> <br>
+                        +1 click per pounce <br>
+                        <b>Cost: 5 clicks</b>
+                    </div>
+                </button>
+
+                <button class="upgrade-card upgradeBUTTON2">
+                    <img src="https://avatars.mds.yandex.net/i?id=a5abaa17a5048aa667941a7ebaad58be55b99bba-5234328-images-thumbs&n=13" alt="" class="upg-img">
+                    <div class="description">
+                        <strong> Button 2 </strong> <br>
+                        +1 click per pounce <br>
+                        <b>Cost: 5 clicks</b>
+                    </div>
+                </button>
+
+                <button class="upgrade-card upgradeSHOP">
+                    <img src="https://avatars.mds.yandex.net/i?id=7d21365d8b1645fe0782e143d2a1443cbf764cd7-7543789-images-thumbs&n=13" alt="" class="upg-img">
+                    <div class="description">
+                        <strong> Shop </strong> <br>
+                        +1 click per pounce <br>
+                        <b>Cost: 5 clicks</b>
+                    </div>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            let counter = 0;
+            const counterDisplay = document.getElementById('counterDisplay');
+            const clickBtn = document.querySelector('.click-btn');
+
+            const dvdCat = document.querySelector('.upgradeDVDCAT');
+            const Title = document.querySelector('.upgradeTITLE');
+            const MoreClicks1 = document.querySelector('.upgradeMORECLICKS1');
+            const CPS = document.querySelector('.upgradeCPS');
+            const Button1 = document.querySelector('.upgradeBUTTON1');
+            const Dash_Agent = document.querySelector('.upgradeDASH_AGENT');
+            const News_Line = document.querySelector('.upgradeNEWS_LINE');
+            const Piano_Cat = document.querySelector('.upgradePIANO_CAT');
+            const Bird_Scream = document.querySelector('.upgradeBIRD_SCREAM');
+            const Pats_Cats = document.querySelector('.upgradePATS_CATS');
+            const Cat_Mobile = document.querySelector('.upgradeCAT_MOBILE');
+            const Cat_Toy = document.querySelector('.upgradeCAT_TOY');
+            const Cat_Podcast = document.querySelector('.upgradeCAT_PODCAST');
+            const Loot_Boxes = document.querySelector('.upgradeLOOT_BOXES');
+            const Button2 = document.querySelector('.upgradeBUTTON2');
+            const Shop = document.querySelector('.upgradeSHOP');
+
+            // Список улучшений
+            const upgrades = [
+                { element: dvdCat, cost: 5, unlockAt: 5, canStack: true },
+                { element: Title, cost: 15, unlockAt: 15, canStack: false },
+                { element: MoreClicks1, cost: 15, unlockAt: 15, canStack: false },
+                { element: CPS, cost: 25, unlockAt: 25, canStack: false },
+                { element: Button1, cost: 40, unlockAt: 40, canStack: false },
+                { element: Dash_Agent, cost: 55, unlockAt: 55, canStack: false },
+                { element: News_Line, cost: 65, unlockAt: 65, canStack: false },
+                { element: Piano_Cat, cost: 65, unlockAt: 65, canStack: false },
+                { element: Bird_Scream, cost: 85, unlockAt: 85, canStack: false },
+                { element: Pats_Cats, cost: 125, unlockAt: 125, canStack: false },
+                { element: Cat_Mobile, cost: 125, unlockAt: 125, canStack: false },
+                { element: Cat_Toy, cost: 150, unlockAt: 150, canStack: false },
+                { element: Cat_Podcast, cost: 300, unlockAt: 300, canStack: false },
+                { element: Loot_Boxes, cost: 5, unlockAt: 305, canStack: false },
+                { element: Button2, cost: 5, unlockAt: 305, canStack: false },
+                { element: Shop, cost: 5, unlockAt: 305, canStack: false }
+            ];
+
+            // Функция обновления видимых улучшений
+            function updateVisibleUpgrades() {
+                // Сначала скрываем все, которые не куплены и не "уже были показаны"
+                upgrades.forEach(upg => {
+                    const isPurchased = upg.element.classList.contains('purchased');
+                    const wasShown = upg.element.classList.contains('shown');
+
+                    if (isPurchased && wasShown) {
+                        upg.element.classList.remove('show');
+                    }
+                });
+
+                const visible = [];
+                for (const upg of upgrades) {
+                    const isPurchased = upg.element.classList.contains('purchased');
+                    const wasShown = upg.element.classList.contains('shown');
+
+                    if (!isPurchased) {
+                        // Появляется, если:
+                        // - либо уже был показан
+                        // - либо пора появиться (counter >= unlockAt)
+                        if (wasShown || counter >= upg.unlockAt) {
+                            if (visible.length < 5) {
+                                upg.element.classList.add('show', 'shown'); // добавляем 'shown', чтобы запомнить
+                                visible.push(upg);
+                            }
+                        }
+                    }
+                }
+            }
+
+            // Обработчик клика
+            clickBtn.addEventListener('click', () => {
+                counter++;
+                counterDisplay.textContent = `${counter} clicks`;
+                if (counter > 0) counterDisplay.classList.add('show');
+
+                updateVisibleUpgrades();
+            });
+
+            // Обработчики покупки
+            dvdCat.addEventListener('click', () => {
+                const cost = 5;
+                if (counter < cost) {
+                    alert('Not enough clicks!');
+                    return;
+                }
+                counter -= cost;
+                counterDisplay.textContent = `${counter} clicks`;
+
+                let amountOfDvd = dvdCat.querySelector('.amount-of-dvd');
+                amountOfDvd.classList.add('show');
+                amountOfDvd.textContent = parseInt(amountOfDvd.textContent) + 1;
+
+                updateVisibleUpgrades();
+            });
+
+            Title.addEventListener('click', () => {
+                const cost = 15;
+                if (counter < cost) {
+                    alert('Not enough clicks!');
+                    return;
+                }
+                counter -= cost;
+                counterDisplay.textContent = `${counter} clicks`;
+                document.title = "Cat Clicker";
+                Title.classList.add('purchased');
+                updateVisibleUpgrades();
+            });
+
+            MoreClicks1.addEventListener('click', () => {
+                const cost = 15;
+                if (counter < cost) {
+                    alert('Not enough clicks!');
+                    return;
+                }
+                counter -= cost;
+                counterDisplay.textContent = `${counter} clicks`;
+                MoreClicks1.classList.add('purchased');
+                updateVisibleUpgrades();
+            });
+
+            CPS.addEventListener('click', () => {
+                const cost = 25;
+                if (counter < cost) {
+                    alert('Not enough clicks!');
+                    return;
+                }
+                counter -= cost;
+                counterDisplay.textContent = `${counter} clicks`;
+                CPS.classList.add('purchased');
+                updateVisibleUpgrades();
+            });
+
+            Button1.addEventListener('click', () => {
+                const cost = 40;
+                if (counter < cost) {
+                    alert('Not enough clicks!');
+                    return;
+                }
+                counter -= cost;
+                counterDisplay.textContent = `${counter} clicks`;
+                Button1.classList.add('purchased');
+                updateVisibleUpgrades();
+            });
+
+            Dash_Agent.addEventListener('click', () => {
+                const cost = 55;
+                if (counter < cost) {
+                    alert('Not enough clicks!');
+                    return;
+                }
+                counter -= cost;
+                counterDisplay.textContent = `${counter} clicks`;
+                Dash_Agent.classList.add('purchased');
+                updateVisibleUpgrades();
+            });
+
+            News_Line.addEventListener('click', () => {
+                const cost = 65;
+                if (counter < cost) {
+                    alert('Not enough clicks!');
+                    return;
+                }
+                counter -= cost;
+                counterDisplay.textContent = `${counter} clicks`;
+                News_Line.classList.add('purchased');
+                updateVisibleUpgrades();
+            });
+
+            Piano_Cat.addEventListener('click', () => {
+                const cost = 65;
+                if (counter < cost) {
+                    alert('Not enough clicks!');
+                    return;
+                }
+                counter -= cost;
+                counterDisplay.textContent = `${counter} clicks`;
+                Piano_Cat.classList.add('purchased');
+                updateVisibleUpgrades();
+            });
+
+            Bird_Scream.addEventListener('click', () => {
+                const cost = 85;
+                if (counter < cost) {
+                    alert('Not enough clicks!');
+                    return;
+                }
+                counter -= cost;
+                counterDisplay.textContent = `${counter} clicks`;
+                Bird_Scream.classList.add('purchased');
+                updateVisibleUpgrades();
+            });
+
+            Pats_Cats.addEventListener('click', () => {
+                const cost = 125;
+                if (counter < cost) {
+                    alert('Not enough clicks!');
+                    return;
+                }
+                counter -= cost;
+                counterDisplay.textContent = `${counter} clicks`;
+                Pats_Cats.classList.add('purchased');
+                updateVisibleUpgrades();
+            });
+
+            Cat_Mobile.addEventListener('click', () => {
+                const cost = 125;
+                if (counter < cost) {
+                    alert('Not enough clicks!');
+                    return;
+                }
+                counter -= cost;
+                counterDisplay.textContent = `${counter} clicks`;
+                Cat_Mobile.classList.add('purchased');
+                updateVisibleUpgrades();
+            });
+
+            Cat_Toy.addEventListener('click', () => {
+                const cost = 150;
+                if (counter < cost) {
+                    alert('Not enough clicks!');
+                    return;
+                }
+                counter -= cost;
+                counterDisplay.textContent = `${counter} clicks`;
+                Cat_Toy.classList.add('purchased');
+                updateVisibleUpgrades();
+            });
+
+            Cat_Podcast.addEventListener('click', () => {
+                const cost = 300;
+                if (counter < cost) {
+                    alert('Not enough clicks!');
+                    return;
+                }
+                counter -= cost;
+                counterDisplay.textContent = `${counter} clicks`;
+                Cat_Podcast.classList.add('purchased');
+                updateVisibleUpgrades();
+            });
+
+            Loot_Boxes.addEventListener('click', () => {
+                const cost = 5;
+                if (counter < cost) {
+                    alert('Not enough clicks!');
+                    return;
+                }
+                counter -= cost;
+                counterDisplay.textContent = `${counter} clicks`;
+
+                let amountOfLoot = Loot_Boxes.querySelector('.amount-of-dvd');
+                amountOfLoot.classList.add('show');
+                amountOfLoot.textContent = parseInt(amountOfLoot.textContent) + 1;
+
+                updateVisibleUpgrades();
+            });
+
+            Button2.addEventListener('click', () => {
+                const cost = 5;
+                if (counter < cost) {
+                    alert('Not enough clicks!');
+                    return;
+                }
+                counter -= cost;
+                counterDisplay.textContent = `${counter} clicks`;
+
+                let amountOfBtn2 = Button2.querySelector('.amount-of-dvd');
+                amountOfBtn2.classList.add('show');
+                amountOfBtn2.textContent = parseInt(amountOfBtn2.textContent) + 1;
+
+                updateVisibleUpgrades();
+            });
+
+            Shop.addEventListener('click', () => {
+                const cost = 5;
+                if (counter < cost) {
+                    alert('Not enough clicks!');
+                    return;
+                }
+                counter -= cost;
+                counterDisplay.textContent = `${counter} clicks`;
+
+                let amountOfShop = Shop.querySelector('.amount-of-dvd');
+                amountOfShop.classList.add('show');
+                amountOfShop.textContent = parseInt(amountOfShop.textContent) + 1;
+
+                updateVisibleUpgrades();
+            });
+        });
+    </script>
+</body>
+</html>
