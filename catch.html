@@ -43,17 +43,19 @@
         }
 
         .ready{
-            width: clamp(150px, 20vw, 200px);
-            height: 50px;
+            /* width: clamp(150px, 20vw, 200px);
+            height: 50px; */
             background-color: #2bb700;
             border: 2px solid #147102c1;
             color: #ffffff;
             contain: layout;
             margin-bottom: 20px;
             transition: padding .3s ease-out, font-size .3s ease-out, transform .1s ease-out;
-            font-size: auto;
-            border-radius: 10px;
+            font-size: 2em;
+            border-radius: 30px;
             margin-top: 20px;
+            padding: 10px 20px;
+            cursor: pointer;
         }
         
         .disclaimer p{
@@ -79,6 +81,12 @@
             transition: padding .3s ease-out, font-size .3s ease-out, transform .1s ease-out;
             background-color: rgb(221, 221, 221);
             border: 1px solid #949494c1;
+            cursor: pointer;
+        }
+
+        .mode:focus{
+            background-color: rgb(0, 236, 0);
+            color: white;
         }
         
         .catch-btn {
@@ -89,7 +97,7 @@
             font-size: 21px;
             padding: 6px 9px;
             touch-action: manipulation;
-            --cursor: pointer;
+            cursor: pointer;
             border: 2px solid #949494c1;
             color: #000;
             contain: layout;
@@ -115,7 +123,6 @@
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: -100;
         }
 
         .stats{
@@ -132,7 +139,7 @@
     </style>
 </head>
 <body>
-    <div class="disclaimer-container">>
+    <div class="disclaimer-container">
         <div class="disclaimer" id="disclaimer">
             <h1>Get ready!</h1>
             <h3>You will have to catch the button in <span>short amount of time</span> and see how fast can you do it (or fail it)</h3>
@@ -163,7 +170,7 @@
 
     <script>
         let counter = 0;
-        let time = 30;
+        let time = 30; // по умолчанию
         let timer = null;
 
         let ready_btn = document.getElementById('start-btn');
@@ -171,23 +178,66 @@
         let disclaimer = document.getElementById('disclaimer');
         let game = document.getElementById('game');
         let counterDisplay = document.getElementById('counterDisplay');
-        let timeLeft = document.getElementById('time-left');
+        let timeLeftDisplay = document.getElementById('time-left');
+
         let mode_1 = document.querySelector('.mode-1');
         let mode_2 = document.querySelector('.mode-2');
         let mode_3 = document.querySelector('.mode-3');
 
-        mode_1.addEventListener('click', () => timeLeft = 30);
-        mode_2.addEventListener('click', () => timeLeft = 20);
-        mode_3.addEventListener('click', () => timeLeft = 10);
+        // выбор времени
+        mode_1.addEventListener('click', () => { time = 30; timeLeftDisplay.textContent = `${time} seconds left /`; });
+        mode_2.addEventListener('click', () => { time = 20; timeLeftDisplay.textContent = `${time} seconds left /`; });
+        mode_3.addEventListener('click', () => { time = 10; timeLeftDisplay.textContent = `${time} seconds left /`; });
 
+        // старт игры
         ready_btn.addEventListener('click', () => {
             game.style.display = 'block';
             disclaimer.style.display = 'none';
-        })
+            startTimer();
+        });
 
+        // рандомайзер позиции кнопки
+        function moveButtonRandom() {
+            const btn = catched;
+            const maxX = window.innerWidth - btn.offsetWidth;
+            const maxY = window.innerHeight - btn.offsetHeight;
 
-        // РАНДОМАЙЗЕР ПОЛОЖЕНИЯ + РАБОТА ТАЙМЕРА
+            const randX = Math.floor(Math.random() * maxX);
+            const randY = Math.floor(Math.random() * maxY);
 
+            btn.style.left = randX + "px";
+            btn.style.top = randY + "px";
+        }
+
+        // обработка клика по кнопке
+        catched.addEventListener('click', () => {
+            counter++;
+            counterDisplay.textContent = `${counter} clicks`;
+            moveButtonRandom();
+        });
+
+        // запуск таймера
+        function startTimer() {
+            let remaining = time;
+            timeLeftDisplay.textContent = `${remaining} seconds left /`;
+
+            timer = setInterval(() => {
+                remaining--;
+                timeLeftDisplay.textContent = `${remaining} seconds left /`;
+
+                if (remaining <= 0) {
+                    clearInterval(timer);
+                    if (counter <= 10) {
+                        alert(`Time's up! You clicked only ${counter} times. Try harder, sucker!`);
+                    } else if (counter <= 30) {
+                        alert(`Time's up! You clicked ${counter} times. Not bad, but still sucks!`);
+                    } else {
+                        alert(`Time's up! Amazing! You clicked ${counter} times!`);
+                    }
+                    location.reload(); // перезапускаем игру
+                }
+            }, 1000);
+        }
 
     </script>
 </body>
