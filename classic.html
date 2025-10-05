@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>We're actually a copy of EA so you have to click enough for the normal title</title>
+
     <style>
         :root {
             --upgrade-card-size: clamp(50px, 8vw, 70px);
@@ -108,7 +109,7 @@
             cursor: pointer;
             font-size: small;
             opacity: 0;
-            transform: scale(0.8);  /* появляется чуть меньше */
+            transform: scale(0.8);
             transition: opacity 0.2s ease, transform 0.2s ease;
             position: relative;
         }
@@ -116,12 +117,12 @@
         .upgrade-card.show {
             display: flex;
             opacity: 1;
-            transform: scale(1); /* плавное появление */
+            transform: scale(1);
         }
 
         .description {
             position: absolute;
-            bottom: -110px; /* выдвигаем вниз под иконку */
+            bottom: -110px;
             left: 50%;
             transform: translateX(-50%);
             background: white;
@@ -148,11 +149,11 @@
 
         .upgrade-cards{
             display: flex;
-            justify-content: center;   /* центрируем карточки */
-            align-items: center;       /* вертикальное центрирование */
+            justify-content: center;
+            align-items: center;
             gap: 15px;
             transition: all 0.3s ease;
-            width: 100%; 
+            width: 100%;
             min-height: 90px;
         }
 
@@ -187,16 +188,40 @@
             justify-content: center;
             align-items: center;
             font-weight: bold;
-            pointer-events: none; /* чтобы клики не мешали */
+            pointer-events: none;
             text-align: center;
             opacity: 0;
         }
 
         .amount-of-dvd.show {
             opacity: 1;
-            transition: opacity 0.5s ease;        
+            transition: opacity 0.5s ease;
         }
 
+        .cps.showCPS {
+            opacity: 1 !important;
+        }
+
+        .click-amount-display {
+            position: absolute;
+            color: black;
+            font-weight: 400;
+            font-size: 2em;
+            pointer-events: none;
+            animation: floatUp 1.5s ease-out forwards;
+            opacity: 0;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-200px);
+                opacity: 0;
+            }
+        }
     </style>
 </head>
 <body>
@@ -208,8 +233,6 @@
         </div>
         <div class="upgrades">
             <div class="upgrade-cards">
-                <!-- Upgrade items can be added here -->
-                
                 <button class="upgrade-card upgradeDVDCAT">
                     <img src="https://avatars.mds.yandex.net/i?id=1db5280b511e40acd993d156a610c102e485f31e-5897487-images-thumbs&n=13" alt="dvcat" class="dvcat-logo-upg upg-img">
                     <span class="amount-of-dvd">0</span>
@@ -221,7 +244,7 @@
                 </button>
 
                 <button class="upgrade-card upgradeTITLE">
-                    <img src="https://avatars.mds.yandex.net/i?id=e182a26699367fcd5bcee348cee397e14d189747-10813564-images-thumbs&n=13" alt="" class="upg-img">
+                    <img src="  https://avatars.mds.yandex.net/i?id=e182a26699367fcd5bcee348cee397e14d189747-10813564-images-thumbs&n=13" alt="" class="upg-img">
                     <div class="description">
                         <strong> Add Page Title </strong> <br>
                         Get normal title <br>
@@ -230,7 +253,7 @@
                 </button>
 
                 <button class="upgrade-card upgradeMORECLICKS1">
-                    <img src="https://avatars.mds.yandex.net/i?id=0bc66ce50060826f76cc0a69a66d613e35aa7fae-5240093-images-thumbs&n=13" alt="" class="upg-img">
+                    <img src="  https://avatars.mds.yandex.net/i?id=0bc66ce50060826f76cc0a69a66d613e35aa7fae-5240093-images-thumbs&n=13" alt="" class="upg-img">
                     <div class="description">
                         <strong> Amount display </strong> <br>
                         +1 click per click <br>
@@ -239,7 +262,7 @@
                 </button>
 
                 <button class="upgrade-card upgradeCPS">
-                    <img src="https://avatars.mds.yandex.net/i?id=d95cc4a04dc33e575fc852792888e9ad_sr-6307799-images-thumbs&n=13" alt="" class="upg-img">
+                    <img src="  https://avatars.mds.yandex.net/i?id=d95cc4a04dc33e575fc852792888e9ad_sr-6307799-images-thumbs&n=13" alt="" class="upg-img">
                     <div class="description">
                         <strong> CPS </strong> <br>
                         See your clicks per second <br>
@@ -248,7 +271,7 @@
                 </button>
 
                 <button class="upgrade-card upgradeBUTTON1">
-                    <img src="https://avatars.mds.yandex.net/i?id=e9908fded2ee40485adb812ae66c072a_l-5896834-images-thumbs&n=13" alt="" class="upg-img">
+                    <img src="  https://avatars.mds.yandex.net/i?id=e9908fded2ee40485adb812ae66c072a_l-5896834-images-thumbs&n=13" alt="" class="upg-img">
                     <div class="description">
                         <strong> Button Upgrade </strong> <br>
                         +1 click per click <br>
@@ -257,7 +280,7 @@
                 </button>
 
                 <button class="upgrade-card upgradeDASH_AGENT">
-                    <img src="https://avatars.mds.yandex.net/i?id=0b778475858a1d3d248c5a300ed97c08a1040506-5101755-images-thumbs&n=13" alt="" class="upg-img">
+                    <img src="  https://avatars.mds.yandex.net/i?id=0b778475858a1d3d248c5a300ed97c08a1040506-5101755-images-thumbs&n=13" alt="" class="upg-img">
                     <div class="description">
                         <strong> Dash Agent </strong> <br>
                         +15 clicks per second <br>
@@ -266,7 +289,7 @@
                 </button>
 
                 <button class="upgrade-card upgradeNEWS_LINE">
-                    <img src="https://avatars.mds.yandex.net/i?id=4aacabc69c15511751aae37f248b521d045cb188-7547473-images-thumbs&n=13" alt="" class="upg-img">
+                    <img src="  https://avatars.mds.yandex.net/i?id=4aacabc69c15511751aae37f248b521d045cb188-7547473-images-thumbs&n=13" alt="" class="upg-img">
                     <div class="description">
                         <strong> Breaking News </strong> <br>
                         +15 clicks per second <br>
@@ -275,7 +298,7 @@
                 </button>
 
                 <button class="upgrade-card upgradePIANO_CAT">
-                    <img src="https://avatars.mds.yandex.net/i?id=050da0b26ae110587a47999aa2b43198eed48b13-4809920-images-thumbs&n=13" alt="" class="upg-img">
+                    <img src="  https://avatars.mds.yandex.net/i?id=050da0b26ae110587a47999aa2b43198eed48b13-4809920-images-thumbs&n=13" alt="" class="upg-img">
                     <div class="description">
                         <strong> Piano Cat</strong> <br>
                         +20 clicks per second<br>
@@ -284,7 +307,7 @@
                 </button>
 
                 <button class="upgrade-card upgradeBIRD_SCREAM">
-                    <img src="https://i.ytimg.com/vi/vWjy5sOE8rw/maxresdefault.jpg" alt="" class="upg-img">
+                    <img src="  https://i.ytimg.com/vi/vWjy5sOE8rw/maxresdefault.jpg  " alt="" class="upg-img">
                     <div class="description">
                         <strong> Screaming birb </strong> <br>
                         +25 click per scream <br>
@@ -302,7 +325,7 @@
                 </button>
 
                 <button class="upgrade-card upgradeCAT_MOBILE">
-                    <img src="https://avatars.mds.yandex.net/i?id=5fd1fa69691a30034a64ffef148c357f354fb7e6-8216657-images-thumbs&n=13" alt="" class="upg-img">
+                    <img src="  https://avatars.mds.yandex.net/i?id=5fd1fa69691a30034a64ffef148c357f354fb7e6-8216657-images-thumbs&n=13" alt="" class="upg-img">
                     <div class="description">
                         <strong> Cat-mobile </strong> <br>
                         +100 click per 5 second <br>
@@ -311,7 +334,7 @@
                 </button>
 
                 <button class="upgrade-card upgradeCAT_TOY">
-                    <img src="https://avatars.mds.yandex.net/i?id=25ce2323e76ed2d74eae91ba97fdc0d6bb3cb7dd-8567975-images-thumbs&n=13" alt="" class="upg-img">
+                    <img src="  https://avatars.mds.yandex.net/i?id=25ce2323e76ed2d74eae91ba97fdc0d6bb3cb7dd-8567975-images-thumbs&n=13" alt="" class="upg-img">
                     <div class="description">
                         <strong> Cat Playing with Toys </strong> <br>
                         +35 click per second <br>
@@ -320,7 +343,7 @@
                 </button>
 
                 <button class="upgrade-card upgradeCAT_PODCAST">
-                    <img src="https://avatars.mds.yandex.net/i?id=f734a5c09e1344587525a49f6016b266877920ab-5252031-images-thumbs&n=13" alt="" class="upg-img">
+                    <img src="  https://avatars.mds.yandex.net/i?id=f734a5c09e1344587525a49f6016b266877920ab-5252031-images-thumbs&n=13" alt="" class="upg-img">
                     <div class="description">
                         <strong> Cat voice podcast </strong> <br>
                         +50 click per meow <br>
@@ -329,63 +352,27 @@
                 </button>
 
                 <button class="upgrade-card upgradeLOOT_BOXES">
-                    <img src="https://avatars.mds.yandex.net/i?id=2ee4040ca58de8e794453fe9110e4a8ba68fd386-5086925-images-thumbs&n=13" alt="" class="upg-img">
+                    <img src="  https://avatars.mds.yandex.net/i?id=2ee4040ca58de8e794453fe9110e4a8ba68fd386-5086925-images-thumbs&n=13" alt="" class="upg-img">
                     <div class="description">
-                        <strong> DVD Cat </strong> <br>
+                        <strong> Loot Boxes </strong> <br>
                         +1 click per pounce <br>
                         <b>Cost: 5 clicks</b>
                     </div>
                 </button>
 
                 <button class="upgrade-card upgradeBUTTON2">
-                    <img src="https://avatars.mds.yandex.net/i?id=a5abaa17a5048aa667941a7ebaad58be55b99bba-5234328-images-thumbs&n=13" alt="" class="upg-img">
+                    <img src="  https://avatars.mds.yandex.net/i?id=a5abaa17a5048aa667941a7ebaad58be55b99bba-5234328-images-thumbs&n=13" alt="" class="upg-img">
                     <div class="description">
-                        <strong> DVD Cat </strong> <br>
+                        <strong> Button 2 </strong> <br>
                         +1 click per pounce <br>
                         <b>Cost: 5 clicks</b>
                     </div>
                 </button>
 
                 <button class="upgrade-card upgradeSHOP">
-                    <img src="https://avatars.mds.yandex.net/i?id=7d21365d8b1645fe0782e143d2a1443cbf764cd7-7543789-images-thumbs&n=13" alt="" class="upg-img">
+                    <img src="  https://avatars.mds.yandex.net/i?id=7d21365d8b1645fe0782e143d2a1443cbf764cd7-7543789-images-thumbs&n=13" alt="" class="upg-img">
                     <div class="description">
-                        <strong> DVD Cat </strong> <br>
-                        +1 click per pounce <br>
-                        <b>Cost: 5 clicks</b>
-                    </div>
-                </button>
-
-                <button class="upgrade-card upgrade17">
-                    <img src="" alt="" class="upg-img"> 
-                    <div class="description">
-                        <strong> DVD Cat </strong> <br>
-                        +1 click per pounce <br>
-                        <b>Cost: 5 clicks</b>
-                    </div>
-                </button>
-
-                <button class="upgrade-card upgrade18">
-                    <img src="" alt="" class="upg-img"> 
-                    <div class="description">
-                        <strong> DVD Cat </strong> <br>
-                        +1 click per pounce <br>
-                        <b>Cost: 5 clicks</b>
-                    </div>
-                </button>
-
-                <button class="upgrade-card upgrade19">
-                    <img src="" alt="" class="upg-img"> 
-                    <div class="description">
-                        <strong> DVD Cat </strong> <br>
-                        +1 click per pounce <br>
-                        <b>Cost: 5 clicks</b>
-                    </div>
-                </button>
-
-                <button class="upgrade-card upgrade20">
-                    <img src="" alt="" class="upg-img"> 
-                    <div class="description">
-                        <strong> DVD Cat </strong> <br>
+                        <strong> Shop </strong> <br>
                         +1 click per pounce <br>
                         <b>Cost: 5 clicks</b>
                     </div>
@@ -394,167 +381,478 @@
         </div>
     </div>
 
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            let counter = 0;
-            const counterDisplay = document.getElementById('counterDisplay');
-            const clickBtn = document.querySelector('.click-btn');
-            let upgradesContainer = document.querySelector('.upgrade-cards');
+    <script type="module">
+        let counter = 0;
+        let clickAmount = 1; // по умолчанию 1 клик за клик
+        let moreClicks1Purchased = false; // флаг, куплен ли апгрейд
 
-            const dvdCat = document.querySelector('.upgradeDVDCAT')
-            const Title = document.querySelector('.upgradeTITLE')
-            const MoreClicks1 = document.querySelector('.upgradeMORECLICKS1')
-            const CPS = document.querySelector('.upgradeCPS')
-            const Button1 = document.querySelector('.upgradeBUTTON1')
-            const Dash_Agent = document.querySelector('.upgradeDASH_AGENT')
-            const News_Line = document.querySelector('.upgradeNEWS_LINE')
-            const Piano_Cat = document.querySelector('.upgradePIANO_CAT')
-            const Bird_Scream = document.querySelector('.upgradeBIRD_SCREAM')
-            const Pats_Cats = document.querySelector('.upgradePATS_CATS')
-            const Cat_Mobile = document.querySelector('.upgradeCAT_MOBILE')
-            const Cat_Toy = document.querySelector('.upgradeCAT_TOY')
-            const Cat_Podcast = document.querySelector('.upgradeCAT_PODCAST')
-            const Loot_Boxes = document.querySelector('.upgradeLOOT_BOXES')
-            const Button2 = document.querySelector('.upgradeBUTTON2')
-            const Shop = document.querySelector('.upgradeSHOP')
+        // ----------------------- dvd cat --------------------------
+        const dvdContainer = document.createElement("div");
+        dvdContainer.style.position = "fixed";
+        dvdContainer.style.top = "0";
+        dvdContainer.style.left = "0";
+        dvdContainer.style.width = "100vw";
+        dvdContainer.style.height = "100vh";
+        dvdContainer.style.overflow = "hidden";
+        dvdContainer.style.zIndex = "-1";
+        dvdContainer.style.pointerEvents = "none"; // не мешает кликам
+        document.body.appendChild(dvdContainer);
 
-            clickBtn.addEventListener('click', () => {
-                console.log('Click');
-                counter++;
-                counterDisplay.textContent = `${counter} clicks`;
+        const baseCost = 5;
+        const multiplier = 1.15; // каждая покупка делает следующую дороже на 15%
+        let amountBought = 0;
+        function spawnDVDCat() {
+            const dvdWidth = 150;
+            const dvdHeight = 100;
 
-                if (counter > 0) {
-                    counterDisplay.classList.add('show');
+            const dvd = document.createElement("div");
+            dvd.style.position = "fixed";
+            dvd.style.width = dvdWidth + "px";
+            dvd.style.height = dvdHeight + "px";
+            dvd.style.left = window.innerWidth / 2 - dvdWidth / 2 + "px";
+            dvd.style.top = window.innerHeight / 2 - dvdHeight / 2 + "px";
+            dvd.style.userSelect = "none";
+            dvd.style.pointerEvents = "none";
+            dvd.style.zIndex = "-1";
+            dvd.style.backgroundImage = "url('/img/maxwell.png')";
+            dvd.style.backgroundSize = "cover"; // ✅ оставляем cover, как ты хотел
+            dvd.style.backgroundRepeat = "no-repeat";
+            dvd.style.backgroundPosition = "center";
+            dvdContainer.appendChild(dvd);
+
+            let x = Math.random() * (window.innerWidth - dvdWidth);
+            let y = Math.random() * (window.innerHeight - dvdHeight);
+            let dx = (Math.random() > 0.5 ? 1 : -1) * (1 + Math.random() * 2);
+            let dy = (Math.random() > 0.5 ? 1 : -1) * (1 + Math.random() * 2);
+
+
+            function move() {
+                x += dx;
+                y += dy;
+
+                let bounced = false;
+
+                // столкновение по X
+                if (x <= 0) {
+                    x = 0;
+                    dx = -dx;
+                    bounced = true;
+                } else if (x + dvdWidth >= window.innerWidth) {
+                    x = window.innerWidth - dvdWidth;
+                    dx = -dx;
+                    bounced = true;
                 }
-                
 
-            const cards = document.querySelectorAll('.upgrade-card'); 
-            const visible = [...cards].filter(c => c.classList.contains('show'));
-            
-            function updateUpgrades() { 
-                
-                if (visible.length > 5) { 
-                    visible.slice(5).forEach(c => { 
-                        c.classList.remove('show');
-                    }); 
+                // столкновение по Y
+                if (y <= 0) {
+                    y = 0;
+                    dy = -dy;
+                    bounced = true;
+                } else if (y + dvdHeight >= window.innerHeight) {
+                    y = window.innerHeight - dvdHeight;
+                    dy = -dy;
+                    bounced = true;
                 }
+
+                // если был отскок — добавляем клик
+                if (bounced) {
+                    counter++;
+                    registerClick();
+                    updateCounterDisplay();
+                }
+
+                dvd.style.left = x + "px";
+                dvd.style.top = y + "px";
+
+                requestAnimationFrame(move);
             }
 
-                // апгрейды (и их появление)
+            move();
+        }
 
-                if (counter === 5  || visible.length == 4 && visible.length < 5) {
-                    dvdCat.classList.add('show');
-                    updateUpgrades();
-                }
+        // ----------------------- cps --------------------------
 
-                if (counter === 9  || visible.length == 4 && visible.length < 5) {
-                    Title.classList.add('show');
-                    updateUpgrades();
-                }
-                
-                if (counter === 15 || visible.length == 4 && visible.length < 5) {
-                    MoreClicks1.classList.add('show');
-                    updateUpgrades();
-                }
-                
-                if (counter === 18 || visible.length == 4 && visible.length < 5) {
-                    CPS.classList.add('show');
-                    updateUpgrades();
-                }
-                
-                if (counter === 20 || visible.length == 4 && visible.length < 5) {
-                    Button1.classList.add('show');
-                    updateUpgrades();
-                }
-                
-                if (counter === 24 || visible.length == 4 && visible.length < 5) {
-                    Dash_Agent.classList.add('show');
-                    updateUpgrades();
-                }
-                
-                if (counter === 28 || visible.length == 4 && visible.length < 5) {
-                    News_Line.classList.add('show');
-                    updateUpgrades();
-                }
-                
-                if (counter === 34 || visible.length == 4 && visible.length < 5) {
-                    Piano_Cat.classList.add('show');
-                    updateUpgrades();
-                }
-                
-                if (counter === 38 || visible.length == 4 && visible.length < 5) {
-                    Bird_Scream.classList.add('show');
-                    updateUpgrades();
-                }
-                
-                if (counter === 40 || visible.length == 4 && visible.length < 5) {
-                    Pats_Cats.classList.add('show');
-                    updateUpgrades();
-                }
-                
-                if (counter === 45 || visible.length == 4 && visible.length < 5) {
-                    Cat_Mobile.classList.add('show');
-                    updateUpgrades();
-                }
+        let clicks = 0;        // общее количество кликов
+        let cps = 0;            // кликов в секунду
+        let lastCheck = Date.now();
 
-                if (counter === 50 || visible.length == 4 && visible.length < 5) {
-                    Cat_Toy.classList.add('show');
-                    updateUpgrades();
-                }
+        // обновление текста на экране
+        function updateCPSDisplay() {
+            const cpsDisplay = document.querySelector('.cps');
+            if (cpsDisplay) {
+                cpsDisplay.textContent = `${cps.toFixed(1)} clicks per second`;
+            }
+        }
 
-                if (counter === 60 || visible.length == 4 && visible.length < 5) {
-                    Cat_Podcast.classList.add('show');
-                    updateUpgrades();
-                }
+        // вызывать этот метод каждый раз, когда клик засчитывается
+        function registerClick() {
+            clicks++;
+        }
 
-                if (counter === 70 || visible.length == 4 && visible.length < 5) {
-                    Loot_Boxes.classList.add('show');
-                    updateUpgrades();
-                }
+        // обновление CPS каждые 0.5 секунды
+        setInterval(() => {
+            const now = Date.now();
+            const elapsed = (now - lastCheck) / 1000; // в секундах
+            const clicksPerSecond = (clicks / elapsed);
+            cps = clicksPerSecond;
+            clicks = 0;
+            lastCheck = now;
+            updateCPSDisplay();
+        }, 500);
 
-                if (counter === 80 || visible.length == 4 && visible.length < 5) {
-                    Button2.classList.add('show');
-                    updateUpgrades();
-                }
 
-                if (counter === 90 || visible.length == 4 && visible.length < 5) {
-                    Shop.classList.add('show');
-                    updateUpgrades();
-                }
+        // -------------------- click amount display -----------------------
+
+
+        function showFloatingText(text) {
+            const clickBtn = document.querySelector('.click-btn');
+            const rect = clickBtn.getBoundingClientRect(); // координаты кнопки
+
+            // Центр кнопки по горизонтали, немного выше по вертикали
+            const x = rect.left + rect.width / 3;
+            const y = rect.top - 30; // чуть выше кнопки
+
+            const el = document.createElement('div');
+            el.textContent = text;
+            el.classList.add('click-amount-display');
+            el.style.position = 'fixed';
+            el.style.left = `${x}px`;
+            el.style.top = `${y}px`;
+            el.style.transform = 'translateX(-50%)'; // центрируем по горизонтали
+            el.style.pointerEvents = 'none';
+            el.style.userSelect = 'none';
+            el.style.zIndex = '9999';
+            document.body.appendChild(el);
+
+            el.addEventListener('animationend', () => {
+                el.remove();
             });
+        }
 
-            dvdCat.addEventListener('click', () => {
-                const cost = 5;
-                if (counter < cost) {
-                    alert('Not enough clicks!');
-                    return;
-                }
 
-                counter -= cost;
+
+        // -------------------- MAIN -----------------------
+
+        function updateCounterDisplay() {
+            const counterDisplay = document.getElementById("counterDisplay");
+            if (counterDisplay) {
                 counterDisplay.textContent = `${counter} clicks`;
+            }
+        }
 
-                // убираем апгрейд
-                let amountOfDvd = dvdCat.querySelector('.amount-of-dvd');
-                amountOfDvd.classList.add('show'); // показываем счетчик
-                amountOfDvd.textContent = parseInt(amountOfDvd.textContent) + 1;
-                console.log('DVD Cat purchased!');
-            });
+        
+        const counterDisplay = document.getElementById('counterDisplay');
+        const clickBtn = document.querySelector('.click-btn');
 
-            Title.addEventListener('click', () => {
-                const cost = 15;
-                if (counter < cost) {
-                    alert('Not enough clicks!');
-                    return;
+        const dvdCat = document.querySelector('.upgradeDVDCAT');
+        const Title = document.querySelector('.upgradeTITLE');
+        const MoreClicks1 = document.querySelector('.upgradeMORECLICKS1');
+        const CPS = document.querySelector('.upgradeCPS');
+        const Button1 = document.querySelector('.upgradeBUTTON1');
+        const Dash_Agent = document.querySelector('.upgradeDASH_AGENT');
+        const News_Line = document.querySelector('.upgradeNEWS_LINE');
+        const Piano_Cat = document.querySelector('.upgradePIANO_CAT');
+        const Bird_Scream = document.querySelector('.upgradeBIRD_SCREAM');
+        const Pats_Cats = document.querySelector('.upgradePATS_CATS');
+        const Cat_Mobile = document.querySelector('.upgradeCAT_MOBILE');
+        const Cat_Toy = document.querySelector('.upgradeCAT_TOY');
+        const Cat_Podcast = document.querySelector('.upgradeCAT_PODCAST');
+        const Loot_Boxes = document.querySelector('.upgradeLOOT_BOXES');
+        const Button2 = document.querySelector('.upgradeBUTTON2');
+        const Shop = document.querySelector('.upgradeSHOP');
+
+        // Список улучшений
+        const upgrades = [
+            { element: dvdCat, cost: 5, unlockAt: 5, canStack: true },
+            { element: Title, cost: 15, unlockAt: 15, canStack: false },
+            { element: MoreClicks1, cost: 15, unlockAt: 15, canStack: false },
+            { element: CPS, cost: 25, unlockAt: 25, canStack: false },
+            { element: Button1, cost: 40, unlockAt: 40, canStack: false },
+            { element: Dash_Agent, cost: 55, unlockAt: 55, canStack: false },
+            { element: News_Line, cost: 65, unlockAt: 65, canStack: false },
+            { element: Piano_Cat, cost: 65, unlockAt: 65, canStack: false },
+            { element: Bird_Scream, cost: 85, unlockAt: 85, canStack: false },
+            { element: Pats_Cats, cost: 125, unlockAt: 125, canStack: false },
+            { element: Cat_Mobile, cost: 125, unlockAt: 125, canStack: false },
+            { element: Cat_Toy, cost: 150, unlockAt: 150, canStack: false },
+            { element: Cat_Podcast, cost: 300, unlockAt: 300, canStack: false },
+            { element: Loot_Boxes, cost: 5, unlockAt: 305, canStack: false },
+            { element: Button2, cost: 5, unlockAt: 305, canStack: false },
+            { element: Shop, cost: 5, unlockAt: 305, canStack: false }
+        ];
+
+        // Функция обновления видимых улучшений
+        function updateVisibleUpgrades() {
+            const visible = [];
+
+            for (const upg of upgrades) {
+                const isPurchased = upg.element.classList.contains('purchased');
+
+                // Показываем, если:
+                // - не куплен, и уже разблокирован
+                // - или уже был показан и не куплен (чтобы не исчез после скрытия)
+                if (!isPurchased && counter >= upg.unlockAt) {
+                    if (visible.length < 5) {
+                        upg.element.classList.add('show');
+                        upg.element.classList.add('shown'); // запоминаем, что был показан
+                        visible.push(upg);
+                    } else {
+                        upg.element.classList.remove('show');
+                    }
+                } else if (isPurchased) {
+                    upg.element.classList.remove('show'); // куплен — не показываем
+                } else if (upg.element.classList.contains('shown')) {
+                    upg.element.classList.add('show'); // уже был показан — остаётся видимым
+                } else {
+                    upg.element.classList.remove('show'); // не разблокирован — скрыт
                 }
+            }
+        }
 
-                counter -= cost;
-                counterDisplay.textContent = `${counter} clicks`;
+        // Обработчик клика
+        clickBtn.addEventListener('click', (e) => {
+            counter += clickAmount; // теперь прибавляем clickAmount (1 или 2)
+            registerClick();
+            counterDisplay.textContent = `${counter} clicks`;
+            if (counter > 0) counterDisplay.classList.add('show');
 
-                // убираем апгрейд
-                document.title = "Cat Clicker";
-                Title.classList.add('purchased');
-                console.log('Title purchased!');
-            });
+            // Показываем анимацию только если MoreClicks1 куплен
+            if (moreClicks1Purchased) {
+                showFloatingText(`+${clickAmount}`);
+            }
+
+            updateVisibleUpgrades();
+        });
+
+        
+        // Обработчики покупки
+        dvdCat.addEventListener('click', () => {
+            const dvdUpgrade = upgrades[0]; // первый апгрейд
+
+            if (counter < dvdUpgrade.cost) {
+                alert(`Not enough clicks! Need ${dvdUpgrade.cost}`);
+                return;
+            }
+
+            // списываем клики
+            counter -= dvdUpgrade.cost;
+            counterDisplay.textContent = `${counter} clicks`;
+
+            // увеличиваем количество купленных
+            amountBought++;
+            let amountOfDvd = dvdCat.querySelector('.amount-of-dvd');
+            amountOfDvd.classList.add('show');
+            amountOfDvd.textContent = amountBought; 
+
+            // создаём кота
+            spawnDVDCat();
+
+            // пересчёт следующей цены
+            dvdUpgrade.cost = Math.round(baseCost * Math.pow(multiplier, amountBought));
+            
+            // обновляем текст в description
+            const descPrice = dvdCat.querySelector('.description b');
+            descPrice.textContent = `Cost: ${dvdUpgrade.cost} clicks`;
+
+            updateVisibleUpgrades();
+        });
+
+        Title.addEventListener('click', () => {
+            const cost = 15;
+            if (counter < cost) {
+                alert('Not enough clicks!');
+                return;
+            }
+            counter -= cost;
+            counterDisplay.textContent = `${counter} clicks`;
+            document.title = "Cat Clicker";
+            Title.classList.add('purchased');
+            updateVisibleUpgrades();
+        });
+
+        MoreClicks1.addEventListener('click', () => {
+            const cost = 15;
+            if (counter < cost) {
+                alert('Not enough clicks!');
+                return;
+            }
+            counter -= cost;
+            counterDisplay.textContent = `${counter} clicks`;
+            MoreClicks1.classList.add('purchased');
+            clickAmount = 2; // теперь клик = +2
+            moreClicks1Purchased = true; // флаг, что апгрейд куплен
+            updateVisibleUpgrades();
+        });
+
+        CPS.addEventListener('click', () => {
+            const cost = 25;
+            if (counter < cost) {
+                alert('Not enough clicks!');
+                return;
+            }
+            counter -= cost;
+            counterDisplay.textContent = `${counter} clicks`;
+            CPS.classList.add('purchased');
+            updateVisibleUpgrades();
+            const cpsDisplay = document.querySelector('.cps');
+            cpsDisplay.classList.add('showCPS');
+        });
+
+        Button1.addEventListener('click', () => {
+            const cost = 40;
+            if (counter < cost) {
+                alert('Not enough clicks!');
+                return;
+            }
+            counter -= cost;
+            counterDisplay.textContent = `${counter} clicks`;
+            Button1.classList.add('purchased');
+            clickAmount++; // +1 клик за клик
+            updateVisibleUpgrades();
+        });
+
+        Dash_Agent.addEventListener('click', () => {
+            const cost = 55;
+            if (counter < cost) {
+                alert('Not enough clicks!');
+                return;
+            }
+            counter -= cost;
+            counterDisplay.textContent = `${counter} clicks`;
+            Dash_Agent.classList.add('purchased');
+            updateVisibleUpgrades();
+        });
+
+        News_Line.addEventListener('click', () => {
+            const cost = 65;
+            if (counter < cost) {
+                alert('Not enough clicks!');
+                return;
+            }
+            counter -= cost;
+            counterDisplay.textContent = `${counter} clicks`;
+            News_Line.classList.add('purchased');
+            updateVisibleUpgrades();
+        });
+
+        Piano_Cat.addEventListener('click', () => {
+            const cost = 65;
+            if (counter < cost) {
+                alert('Not enough clicks!');
+                return;
+            }
+            counter -= cost;
+            counterDisplay.textContent = `${counter} clicks`;
+            Piano_Cat.classList.add('purchased');
+            updateVisibleUpgrades();
+        });
+
+        Bird_Scream.addEventListener('click', () => {
+            const cost = 85;
+            if (counter < cost) {
+                alert('Not enough clicks!');
+                return;
+            }
+            counter -= cost;
+            counterDisplay.textContent = `${counter} clicks`;
+            Bird_Scream.classList.add('purchased');
+            updateVisibleUpgrades();
+        });
+
+        Pats_Cats.addEventListener('click', () => {
+            const cost = 125;
+            if (counter < cost) {
+                alert('Not enough clicks!');
+                return;
+            }
+            counter -= cost;
+            counterDisplay.textContent = `${counter} clicks`;
+            Pats_Cats.classList.add('purchased');
+            updateVisibleUpgrades();
+        });
+
+        Cat_Mobile.addEventListener('click', () => {
+            const cost = 125;
+            if (counter < cost) {
+                alert('Not enough clicks!');
+                return;
+            }
+            counter -= cost;
+            counterDisplay.textContent = `${counter} clicks`;
+            Cat_Mobile.classList.add('purchased');
+            updateVisibleUpgrades();
+        });
+
+        Cat_Toy.addEventListener('click', () => {
+            const cost = 150;
+            if (counter < cost) {
+                alert('Not enough clicks!');
+                return;
+            }
+            counter -= cost;
+            counterDisplay.textContent = `${counter} clicks`;
+            Cat_Toy.classList.add('purchased');
+            updateVisibleUpgrades();
+        });
+
+        Cat_Podcast.addEventListener('click', () => {
+            const cost = 300;
+            if (counter < cost) {
+                alert('Not enough clicks!');
+                return;
+            }
+            counter -= cost;
+            counterDisplay.textContent = `${counter} clicks`;
+            Cat_Podcast.classList.add('purchased');
+            updateVisibleUpgrades();
+        });
+
+        Loot_Boxes.addEventListener('click', () => {
+            const cost = 5;
+            if (counter < cost) {
+                alert('Not enough clicks!');
+                return;
+            }
+            counter -= cost;
+            counterDisplay.textContent = `${counter} clicks`;
+
+            let amountOfLoot = Loot_Boxes.querySelector('.amount-of-dvd');
+            amountOfLoot.classList.add('show');
+            amountOfLoot.textContent = parseInt(amountOfLoot.textContent) + 1;
+
+            updateVisibleUpgrades();
+        });
+
+        Button2.addEventListener('click', () => {
+            const cost = 5;
+            if (counter < cost) {
+                alert('Not enough clicks!');
+                return;
+            }
+            counter -= cost;
+            counterDisplay.textContent = `${counter} clicks`;
+
+            let amountOfBtn2 = Button2.querySelector('.amount-of-dvd');
+            amountOfBtn2.classList.add('show');
+            amountOfBtn2.textContent = parseInt(amountOfBtn2.textContent) + 1;
+
+            updateVisibleUpgrades();
+        });
+
+        Shop.addEventListener('click', () => {
+            const cost = 5;
+            if (counter < cost) {
+                alert('Not enough clicks!');
+                return;
+            }
+            counter -= cost;
+            counterDisplay.textContent = `${counter} clicks`;
+
+            let amountOfShop = Shop.querySelector('.amount-of-dvd');
+            amountOfShop.classList.add('show');
+            amountOfShop.textContent = parseInt(amountOfShop.textContent) + 1;
+
+            updateVisibleUpgrades();
         });
     </script>
 </body>
